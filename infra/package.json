@@ -1,0 +1,29 @@
+{
+  "name": "infra",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -w -p tsconfig.json",
+    "cdk": "cdk",
+    "cdk:bootstrap": "npm run build && cdk bootstrap",
+    "cdk:bootstrap:env": "npm run build && cdk bootstrap aws://$CDK_ACCOUNT/$CDK_REGION",
+    "cdk:bootstrap:auto": "npm run build && bash -lc 'if [ -n \"$AWS_PROFILE\" ]; then cdk bootstrap --profile $AWS_PROFILE; else cdk bootstrap; fi'",
+    "synth": "npm run build && cdk synth",
+    "deploy": "npm run build && bash -lc 'if [ -n \"$AWS_PROFILE\" ]; then cdk deploy --require-approval never --profile $AWS_PROFILE; else cdk deploy --require-approval never; fi'",
+    "destroy": "bash -lc 'if [ -n \"$AWS_PROFILE\" ]; then cdk destroy --profile $AWS_PROFILE; else cdk destroy; fi'"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.152.0",
+    "constructs": "^10.3.0",
+    "source-map-support": "^0.5.21",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/aws-lambda": "^8.10.137",
+    "aws-cdk": "^2.152.0",
+    "esbuild": "^0.21.5",
+    "typescript": "^5.4.5"
+  }
+}

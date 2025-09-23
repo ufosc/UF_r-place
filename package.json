@@ -1,0 +1,17 @@
+{
+  "name": "uf-r-place",
+  "private": true,
+  "workspaces": [
+    "infra",
+    "web"
+  ],
+  "scripts": {
+    "build": "npm -w infra run build && npm -w web run build",
+    "dev": "npm -w web run dev",
+    "lint": "npm -w web run lint",
+    "deploy": "npm -w infra run deploy",
+    "cdk:bootstrap": "npm -w infra run cdk:bootstrap:env",
+    "cdk:deploy": "npm -w infra run deploy"
+  },
+  "devDependencies": {}
+}
