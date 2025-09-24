@@ -10,8 +10,10 @@
     "dev": "npm -w web run dev",
     "lint": "npm -w web run lint",
     "deploy": "npm -w infra run deploy",
+    "destroy": "npm -w infra run destroy",
     "cdk:bootstrap": "npm -w infra run cdk:bootstrap:env",
-    "cdk:deploy": "npm -w infra run deploy"
+    "cdk:deploy": "npm -w infra run deploy",
+    "cdk:destroy": "npm -w infra run destroy"
   },
   "devDependencies": {}
 }
