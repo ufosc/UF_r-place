@@ -1,71 +1,93 @@
-# UF r/place Monorepo
+# UF r/place
+
+A modern, extensible r/place clone designed specifically for the University of Florida campus community. Built with AWS serverless architecture and Next.js, this project allows students to collaboratively create pixel art on a shared canvas.
+
+## 🎨 What is UF r/place?
+
+Inspired by Reddit's r/place, UF r/place is a collaborative digital canvas where UF students can place colored pixels to create art, messages, and designs together. This implementation is tailored for the UF community with plans for future features like:
+
+- University-themed color palettes
+- College/department sections
+- Campus event integrations
+- Student organization competitions
+- Real-time collaborative editing
+
+## 🏗️ Project Structure
 
 This monorepo contains:
 
-- `infra`: AWS CDK app for backend infrastructure (API Gateway + Lambda for `/hello`)
-- `web`: Next.js (App Router) frontend that calls the backend
+- `infra/`: AWS CDK infrastructure (API Gateway + Lambda functions)
+- `web/`: Next.js frontend application with modern React patterns
 
-## Prerequisites
+## 📖 Getting Started
 
-- Node.js 18+
-- An AWS account and configured credentials (`aws configure`)
-- CDK bootstrap (one-time per account/region)
+**For complete setup instructions, visit the [Wiki](https://github.com/ufosc/UF_r-place.wiki)**
 
-## Quickstart
+### Quick Setup
 
-Install dependencies:
+1. **Prerequisites**: Node.js 18+, AWS account, AWS CLI
+2. **Install**: `npm install`
+3. **Configure**: Set up AWS credentials and create `.env` files
+4. **Deploy**: `npm run cdk:bootstrap` then `npm run cdk:deploy`
+5. **Run**: `npm run dev`
 
-```bash
-npm install
-```
+### 📚 Documentation
 
-Bootstrap CDK (first time only, pick your region):
+- **[Getting Started Guide](https://github.com/ufosc/UF_r-place.wiki/blob/master/Getting-Started.md)** - Complete setup walkthrough
+- **[AWS Configuration](https://github.com/ufosc/UF_r-place.wiki/blob/master/AWS-Configuration.md)** - Detailed AWS setup
+- **[Project Overview](https://github.com/ufosc/UF_r-place.wiki/blob/master/Project-Overview.md)** - Architecture and design
+- **[Extensibility Guide](https://github.com/ufosc/UF_r-place.wiki/blob/master/Extensibility-Guide.md)** - Adding new features
 
-```bash
-export CDK_ACCOUNT=123456789012
-export CDK_REGION=us-east-1
-export AWS_ACCESS_KEY_ID=...   # or ensure AWS_PROFILE is configured in your shell
-export AWS_SECRET_ACCESS_KEY=...
-npm run cdk:bootstrap
-```
+## 🛠️ Technologies
 
-Deploy the backend:
+- **Frontend**: Next.js 14, React 18, TypeScript
+- **Backend**: AWS Lambda, API Gateway, CDK  
+- **Infrastructure**: AWS CDK, CloudFormation
+- **Development**: npm workspaces, ESLint, esbuild
 
-```bash
-npm run cdk:deploy
-```
-
-Note the output `ApiUrl` after deployment.
-
-Create `web/.env.local` and set the API URL (be sure it ends with a trailing slash, e.g. `/prod/`):
-
-```bash
-echo "NEXT_PUBLIC_API_URL=<paste ApiUrl>" > web/.env.local
-```
-
-Run the frontend locally:
-
-```bash
-npm run dev
-```
-
-Open http://localhost:3000 to see the `/hello` response from the API.
-
-## Structure
+## 🏛️ Architecture
 
 ```
-infra/
-  bin/app.ts
-  lib/backend-stack.ts
-  lib/constructs/api-construct.ts
-  lambda/hello.ts
-web/
-  app/
-    layout.tsx
-    page.tsx
-    globals.css
-  next.config.mjs
+UF_r-place/
+├── infra/              # AWS Infrastructure
+│   ├── bin/app.ts     # CDK app entry point
+│   ├── lib/           # CDK constructs and stacks
+│   └── lambda/        # Lambda function handlers
+└── web/               # Next.js Frontend
+    ├── app/          # App Router pages and components
+    └── .env.local    # Environment configuration
 ```
+
+## 🚀 Development
+
+The project uses modern development practices:
+- **AWS CDK** for infrastructure as code
+- **Next.js App Router** for modern React patterns
+- **TypeScript** throughout the stack
+- **Serverless architecture** for scalability and cost efficiency
+- **npm workspaces** for monorepo management
+
+## 🎓 Educational Purpose
+
+This project is designed for the UF Open Source Club community, emphasizing:
+- **Learning AWS serverless architecture**
+- **Modern React and Next.js patterns** 
+- **Infrastructure as Code with CDK**
+- **Collaborative development workflows**
+
+## 🤝 Contributing
+
+We welcome contributions from the UF community! The architecture is designed to be:
+- **Simple** - Easy to understand and modify
+- **Extensible** - Straightforward to add new features
+- **Cost-effective** - Runs within AWS Free Tier
+- **Educational** - Great for learning modern web development
+
+## 📞 Support
+
+- Check the [Wiki documentation](https://github.com/ufosc/UF_r-place.wiki) for detailed guides
+- Review existing code in `infra/` and `web/` directories  
+- Ask questions in the UF Open Source Club community
 
 ## Next Steps
 
@@ -78,39 +100,3 @@ web/
 - The API is deployed with CORS enabled for `GET` to simplify local development. Tighten this as needed in production.
 - `infra` uses `aws-lambda-nodejs` to bundle TypeScript Lambdas with esbuild automatically.
 - Next.js is configured with the App Router. Config is in `web/next.config.mjs`.
-  
-
-## Troubleshooting: "Unable to resolve AWS account to use"
-
-This means CDK couldn’t determine your AWS account/region from your environment. Fix it using one of the options below.
-
-Option A: Use environment variables (no AWS CLI needed)
-
-1) Set static credentials in your shell (replace with your values):
-
-```bash
-export AWS_ACCESS_KEY_ID=AKIA...YOURKEY
-export AWS_SECRET_ACCESS_KEY=...YOURSECRET
-# If using temporary creds, also set: export AWS_SESSION_TOKEN=...YOURTOKEN
-```
-
-2) Set account/region (12-digit account ID and region):
-
-```bash
-export CDK_ACCOUNT=123456789012
-export CDK_REGION=us-east-1
-```
-
-3) Bootstrap:
-
-```bash
-npm -w infra run cdk:bootstrap:env
-```
-
-Optionally, you can still use a named profile by setting it in your shell before running commands:
-```bash
-export AWS_PROFILE=myprofile
-export CDK_ACCOUNT=123456789012
-export CDK_REGION=us-east-1
-npm run cdk:bootstrap
-```
