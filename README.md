@@ -2,16 +2,6 @@
 
 A modern, extensible r/place clone designed specifically for the University of Florida campus community. Built with AWS serverless architecture and Next.js, this project allows students to collaboratively create pixel art on a shared canvas.
 
-## 🎨 What is UF r/place?
-
-Inspired by Reddit's r/place, UF r/place is a collaborative digital canvas where UF students can place colored pixels to create art, messages, and designs together. This implementation is tailored for the UF community with plans for future features like:
-
-- University-themed color palettes
-- College/department sections
-- Campus event integrations
-- Student organization competitions
-- Real-time collaborative editing
-
 ## 🏗️ Project Structure
 
 This monorepo contains:
